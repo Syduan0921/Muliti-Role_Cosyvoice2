@@ -31,7 +31,8 @@ class FreeTalkPipeline:
         self.COARSE_LENGTH = coarse_length
         self.WINDOW_SIZE = Windows_Size
         self.data = SentencesJsonListCrud(Windows_Size=Windows_Size)
-        self.LLM_prompt = LLM_prompt("3e0e9ea7-a110-4bfb-9b23-172318fa0e04")
+        api_key = os.getenv("VOLCENGINE_API_KEY", "")
+        self.LLM_prompt = LLM_prompt(api_key)
     
     def forward(self):
         self.coarse_split_process()
