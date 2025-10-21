@@ -98,7 +98,7 @@ def main():
     # 初始化 LLM_prompt
     # 注意: 需要设置有效的 API 密钥和端点
     # 可以从环境变量或配置文件中获取
-    api_key = os.getenv("VOLCENGINE_API_KEY", "3e0e9ea7-a110-4bfb-9b23-172318fa0e04")
+    api_key = os.getenv("VOLCENGINE_API_KEY", "")
     api_endpoint = os.getenv("VOLCENGINE_API_ENDPOINT", "https://ark.cn-beijing.volces.com/api/v3")
     
     try:
