@@ -20,11 +20,20 @@ RoleTTS-Finetune致力于提供一个**开源工具箱**，以解决那些**原�
 ### Example in Distince part
 该部分对现有实现的所有功能（分LLM与TTS）进行演示，包括数据收集，原始模型效果，微调效果三个部分。
 1. 数据收集 LLM部分
+   Wait for update.
 2. 数据收集 TTS部分
-3. 原始模型效果 LLM部分
-4. 原始模型效果 TTS部分
-5. 微调效果 LLM部分
-6. 微调效果 TTS部分
+3. Wait for update.
+4. 原始模型效果 LLM部分
+   
+    | 模型       | Classify       |           | Role Judgement      |           | Pronoun Judgement      |           | Special Token Generation       |           |
+    | :--------- | :---------- | :-------- | :---------- | :-------- | :---------- | :-------- | :---------- | :-------- |
+    |            | Acc         | Scores    | Acc         | Scores    | Acc         | Scores    | Acc         | Scores    |
+    | Doubao-1.6 | \           | \         | \           | \         | \           | \         | \           | \         |
+    | Qwen3-4B    | \           | \         | \           | \         | \           | \         | \           | \         |
+
+5. 原始模型效果 TTS部分
+6. 微调效果 LLM部分
+7. 微调效果 TTS部分
 
 ## How to use RoleTTS-Finetune?
 **Wait for update.**

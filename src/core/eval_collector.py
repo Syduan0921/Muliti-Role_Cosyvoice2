@@ -297,6 +297,12 @@ if __name__ == "__main__":
         item_id=30,
         reference_response='[{"class": "旁白", "content": "白厄苦笑着举起新来的酒杯，手微微颤抖，酒液差点洒出来："}, {"class": "语言", "content": "为蹩脚的分手理由干杯！为我的天真干杯！"}, {"class": "旁白", "content": "他仰头一饮而尽，喉结随着吞咽动作上下滚动。"}]'
     )
+
+    collector.add_from_step1(
+        step1_file="examples/example1/step1.json",
+        item_id=30,
+        reference_response='[{"class": "旁白", "content": "白厄苦笑着举起新来的酒杯，手微微颤抖，酒液差点洒出来："}, {"class": "语言", "content": "为蹩脚的分手理由干杯！为我的天真干杯！"}, {"class": "旁白", "content": "他仰头一饮而尽，喉结随着吞咽动作上下滚动。"}]'
+    )
     
     # 添加模型响应
     # collector.add_model_response(

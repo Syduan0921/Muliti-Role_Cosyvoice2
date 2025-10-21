@@ -28,6 +28,9 @@ class FreeTalkPipeline:
             self.origin_text = f.read()
             self.origin_text = self.origin_text.strip().replace(" ", "")
         
+        # 提取读取目录的根目录，作为后续处理的基础
+        self.path_dir = os.path.dirname(self.file_path)
+        
         self.COARSE_LENGTH = coarse_length
         self.WINDOW_SIZE = Windows_Size
         self.data = SentencesJsonListCrud(Windows_Size=Windows_Size)
@@ -68,7 +71,7 @@ class FreeTalkPipeline:
             self.data.create(i, {"class": None, "sub_sentence": item, "describe": {"role": None, "style": None}})
 
         #最后，保存备份当前进度。
-        self.data.save_date("examples\example1\step1.json")
+        self.data.save_date(os.path.join(self.path_dir, "step1.json"))
     
     def fine_split_process(self, reload_file_path: str | None = None) -> SentencesJsonListCrud:
         """
@@ -102,7 +105,7 @@ class FreeTalkPipeline:
         self.data = _data
         
         # 最后，保存备份当前进度。
-        self.data.save_date("examples\example1\step2.json")
+        self.data.save_date(os.path.join(self.path_dir, "step2.json"))
         return self.data
 
     
@@ -117,7 +120,7 @@ class FreeTalkPipeline:
             ctx = self.LLM_prompt.use_prompt_with_class("batch_classify_role", item)
             item.write_describe_role(ctx.read_describe_role())
             print(f"子句的说话人: {item.read_all()}")
-        self.data.save_date("examples\example1\step3.json")
+        self.data.save_date(os.path.join(self.path_dir, "step3.json"))
 
         # 合并之前的相同类型的连续子句
         _data = SentencesJsonListCrud(Windows_Size=self.WINDOW_SIZE)
@@ -138,7 +141,7 @@ class FreeTalkPipeline:
         if _data_temp.read_sub_sentence != None:
                 _data.create(None, _data_temp.to_dict())
         self.data = _data
-        self.data.save_date("examples\example1\step3_5.json")
+        self.data.save_date(os.path.join(self.path_dir, "step3_5.json"))
 
         return self.data
 
@@ -158,7 +161,7 @@ class FreeTalkPipeline:
             item.write_sub_sentence(ctx.read_sub_sentence())
             item.write_describe_style(ctx.read_describe_style())
             print(f"子句的语气描述: {item.read_all()}")
-        self.data.save_date("examples\example1\step4.json")
+        self.data.save_date(os.path.join(self.path_dir, "step4.json"))
 
         return self.data
         
@@ -166,6 +169,6 @@ class FreeTalkPipeline:
 
 
 if __name__ == "__main__":
-    pipeline = FreeTalkPipeline("examples\example1\origin.txt")
+    pipeline = FreeTalkPipeline("examples\doupo\origin.txt")
     pipeline.forward()
 
