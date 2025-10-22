@@ -6,18 +6,18 @@ import os
 
 try:
     from src.template.sentences_json import SentencesJsonListCrud, SentencesJsonCrud
-    from src.utils.tools import is_all_symbols, check_sub_ta
+    from src.utils.tools import is_all_symbols, check_sub_ta, preprocess_text
     from src.template.LLM_prompt import LLM_prompt
     from src.template.BaseClassTemp.BaseClass import JsonObjCrud
 except:
     from template.sentences_json import SentencesJsonListCrud, SentencesJsonCrud
-    from utils.tools import is_all_symbols, check_sub_ta
+    from utils.tools import is_all_symbols, check_sub_ta, preprocess_text
     from template.LLM_prompt import LLM_prompt
     from template.BaseClassTemp.BaseClass import JsonObjCrud
 
 class FreeTalkPipeline:
     """FreeTalk 核心管线类"""
-    def __init__(self, file_path: str, coarse_length = 30, Windows_Size: int = 3) -> None:
+    def __init__(self, file_path: str, coarse_length = 30, Windows_Size: int = 3, url: str = None) -> None:
         """
         初始化文本部分以及准备各类超参数，例如温度，Windows_Size等
         """
@@ -35,7 +35,10 @@ class FreeTalkPipeline:
         self.WINDOW_SIZE = Windows_Size
         self.data = SentencesJsonListCrud(Windows_Size=Windows_Size)
         api_key = os.getenv("VOLCENGINE_API_KEY", "")
-        self.LLM_prompt = LLM_prompt(api_key)
+        if url is not None:
+            self.LLM_prompt = LLM_prompt(api_key, api_default=url)
+        else:
+            self.LLM_prompt = LLM_prompt(api_key)
     
     def forward(self):
         self.coarse_split_process()
@@ -47,7 +50,9 @@ class FreeTalkPipeline:
         """
         步骤一，对原始文本进行粗粒度非AI处理，令其初步具备基础的Json List格式
         """
-
+        # 对原始数据进行基础处理，包含删除空行，中文字符替换，删除空格
+        self.origin_text = preprocess_text(self.origin_text)
+        
         # 首先，对原始文本进行粗分句，基于换行符号以及句长
         _coarse_sentence = self.origin_text.split("\n")
         _coarse_sentence = [s.strip() for s in _coarse_sentence if s.strip()]
@@ -169,6 +174,5 @@ class FreeTalkPipeline:
 
 
 if __name__ == "__main__":
-    pipeline = FreeTalkPipeline("examples\doupo\origin.txt")
+    pipeline = FreeTalkPipeline("examples\doupo\origin.txt", Windows_Size=5, url="http://10.193.151.23:15387/v1")
     pipeline.forward()
-

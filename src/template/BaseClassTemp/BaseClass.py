@@ -125,7 +125,7 @@ class BaseJsonListCrud(ABC):
 
 
 class JsonObjCrud:
-    def __init__(self, id: int | None = -1, class_name: SentenceClassKey | None = None, Sentence: Dict[str, Any] | None = None, sub_sentence: str | None = None, describe: Dict[str, Any] | None = None, describe_role: str | None = None, describe_style: str | None = None) -> None:
+    def __init__(self, id: int | None = -1, class_name: SentenceClassKey | None = None, Sentence: Dict[str, Any] | None = None, sub_sentence: str | None = None, describe: Dict[str, Any] | None = None, describe_role: str | None = None, describe_style: str | None = None, duration_begin: int | None = None, duration_end: int | None = None, speaker_id: str | None = None) -> None:
         self.id = id
         self.class_name = class_name
         self.Sentence = Sentence
@@ -136,6 +136,10 @@ class JsonObjCrud:
             self.describe["role"] = describe_role
         if describe_style is not None:
             self.describe["style"] = describe_style
+        self.duration_begin = duration_begin if duration_begin is not None else None
+        self.duration_end = duration_end if duration_end is not None else None
+        self.speaker_id = speaker_id if speaker_id is not None else None
+        
     def to_dict(self) -> Dict[str, Any]:
         """
         将对象转换为字典格式
@@ -147,13 +151,19 @@ class JsonObjCrud:
             "sub_sentence": self.sub_sentence,
             "origin_sub_sentence": self.origin_sub_sentence,
             "describe": self.describe,
+            "duration_begin": self.duration_begin,
+            "duration_end": self.duration_end,
+            "speaker_id": self.speaker_id
         } if self.describe else {
             "id": self.id,
             "class": self.class_name,
             "sentence": self.Sentence,
             "sub_sentence": self.sub_sentence,
             "origin_sub_sentence": self.origin_sub_sentence,
-            "describe": {"role": None, "style": None}
+            "describe": {"role": None, "style": None},
+            "duration_begin": self.duration_begin,
+            "duration_end": self.duration_end,
+            "speaker_id": self.speaker_id
         }
     def write_all(self, json_obj: Dict[str, Any]) -> bool:
         """
@@ -168,6 +178,28 @@ class JsonObjCrud:
         self.sub_sentence = json_obj["sub_sentence"]
         self.origin_sub_sentence = json_obj["origin_sub_sentence"] if "origin_sub_sentence" in json_obj else json_obj["sub_sentence"]
         self.describe = json_obj["describe"] if "describe" in json_obj else {"role": None, "style": None}
+        self.duration_begin = json_obj["duration_begin"] if "duration_begin" in json_obj else None
+        self.duration_end = json_obj["duration_end"] if "duration_end" in json_obj else None
+        self.speaker_id = json_obj["speaker_id"] if "speaker_id" in json_obj else None
+
+    def write_duration_begin(self, begin_time: int) -> None:
+        """
+        写入音频的开始时长，单位为秒
+        """
+        self.duration_begin = begin_time
+    
+    def write_duration_end(self, end_time: int) -> None:
+        """
+        写入音频的结束时长，单位为秒
+        """
+        self.duration_begin = end_time
+
+    def write_speaker_id(self, spk_id: str) -> None:
+        """
+        写入音频的说话人id对应服务器端
+        """
+        self.duration_begin = spk_id
+    
     def write_id(self, id: int) -> None:
         """
         写入ID
@@ -274,11 +306,35 @@ class JsonObjCrud:
             "class": self.class_name,
             "sentence": self.read_sentence(),
             "sub_sentence": self.sub_sentence,
+            "duration_begin": self.duration_begin,
+            "duration_end": self.duration_end,
+            "speaker_id": self.speaker_id,
             "describe": self.describe,
         } if self.describe else {
             "id": self.id,
             "class": self.class_name,
             "sentence": self.read_sentence(),
             "sub_sentence": self.sub_sentence,
+            "duration_begin": self.duration_begin,
+            "duration_end": self.duration_end,
+            "speaker_id": self.speaker_id,
             "describe": {"role": None, "style": None}
         }
+
+    def read_duration_begin(self) -> int:
+        """
+        读取音频的开始时长，单位为秒
+        """
+        return self.duration_begin
+    
+    def read_duration_end(self) -> int:
+        """
+        读取音频的结束时长，单位为秒
+        """
+        return self.duration_end
+
+    def read_speaker_id(self) -> str:
+        """
+        读取音频的说话人id对应服务器端
+        """
+        return self.speaker_id

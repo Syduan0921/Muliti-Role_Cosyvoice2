@@ -229,5 +229,38 @@ def fine_grained_post_process(ctx: Dict[str, Any]) -> Dict[str, Any]:
         sub_sentence = sub_sentence.split("\n")[-1]
     return {"text": sub_sentence, "style": ctx.get("style", None)}
 
+def preprocess_text(text: str) -> str:
+    """
+    对原始文本进行基础处理，包含删除空行，中文字符替换，删除空格
+    
+    参数:
+        text: 原始文本
+        
+    返回:
+        处理后的文本
+    """
+    # 1. 删除空行
+    lines = text.split('\n')
+    non_empty_lines = [line for line in lines if line.strip()]
+    text = '\n'.join(non_empty_lines)
+    
+    # 2. 中文字符替换为英文字符
+    chinese_to_english_map = {
+        '。': '.', '，': ',', '！': '!', '？': '?', '：': ':', '；': ';',
+        '「': '"', '」': '"', '『': '"', '』': '"', '《': '<', '》': '>',
+        '（': '(', '）': ')', '【': '[', '】': ']', '｛': '{', '｝': '}',
+        '～': '~', '—': '-', '·': '`', '、': ',', '＂': '"', '＇': "'",
+        '＄': '$', '％': '%', '＆': '&', '＠': '@', '＃': '#', '＾': '^',
+        '＊': '*', '＋': '+', '＝': '=', '｜': '|', '＼': '\\', '／': '/',
+        '“': "'", '”': "'", 
+    }
+    for chinese_char, english_char in chinese_to_english_map.items():
+        text = text.replace(chinese_char, english_char)
+    
+    # 3. 删除空格
+    text = text.replace(' ', '')
+    
+    return text
+
 if __name__ == "__main__":
     print(mapping_windows_size(3, 9, 10))
