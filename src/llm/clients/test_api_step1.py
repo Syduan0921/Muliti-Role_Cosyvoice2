@@ -7,10 +7,14 @@ import os
 import sys
 
 # 添加项目根目录到 Python 路径
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from src.core.eval_collector import TextSplitEvalItem
-from src.template.LLM_prompt import LLM_prompt
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+print(sys.path)
+try:
+    from src.llm.clients.eval_collector import TextSplitEvalItem
+    from src.template.LLM_prompt import LLM_prompt
+except:
+    from eval_collector import TextSplitEvalItem
+    from LLM_prompt import LLM_prompt
 
 def load_eval_data(jsonl_path: str):
     """

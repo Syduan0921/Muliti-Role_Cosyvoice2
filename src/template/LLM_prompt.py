@@ -1,16 +1,18 @@
 import copy
-import os
+import os, sys
 from typing import Any, Dict, List
 from openai import OpenAI
 import langchain
 
+# 添加项目根目录到 Python 路径
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 try:
-    from core.eval_collector import TextSplitEvalItem
+    from template.BaseClassTemp.BaseEvalClass import EvalClass
     from template.BaseClassTemp.BaseClass import JsonObjCrud
     from utils.tools import fine_grained_post_process, parse_list_of_dicts, replace_ta_to_name
 except:
-    from src.core.eval_collector import TextSplitEvalItem
+    from src.template.BaseClassTemp.BaseEvalClass import EvalClass
     from src.template.BaseClassTemp.BaseClass import JsonObjCrud
     from src.utils.tools import fine_grained_post_process, parse_list_of_dicts, replace_ta_to_name
 
@@ -178,7 +180,7 @@ class LLM_prompt:
         raw_output = raw_output.replace(" ", "")
         return fine_grained_post_process({"text": raw_output, "style": None})
     
-    def _evaluate_model_response(self, prompt_class: str, ctx: TextSplitEvalItem) -> TextSplitEvalItem:
+    def _evaluate_model_response(self, prompt_class: str, ctx: EvalClass) -> EvalClass:
         """
         对模型响应进行评估
         """
@@ -204,7 +206,7 @@ class LLM_prompt:
         return ctx
         
 
-    def eval_with_class(self, prompt_class: str, ctx: TextSplitEvalItem):
+    def eval_with_class(self, prompt_class: str, ctx: EvalClass):
         """
         对给定的几个接口进行badcase测试，并评分
         """
@@ -227,8 +229,8 @@ class LLM_prompt:
         ## 使用api调用prompt
         if prompt_class == "fine_split_process":
             # 这里返回的一定是一个List[JsonObjCrud]对象，因此需要对_classify_text_interface的结果做后处理
-            feedback = self._classify_text_interface(None, None, message=ctx.messages[:2])
-            sentence, reference_response, response = ctx.messages[1].get("content"), ctx.messages[2].get("reference_response"), feedback
+            feedback = self._classify_text_interface(None, None, message=ctx.read_origin_input())
+            sentence, reference_response, response = ctx.read_origin_input(), ctx.read_ref_resp(), feedback
             eval_prompt = eval_prompt.format(sentence=sentence, reference_response=reference_response, response=response)
             resp = self._evaluate_model_response(eval_prompt, ctx)[0]
             

@@ -252,7 +252,7 @@ def preprocess_text(text: str) -> str:
         '～': '~', '—': '-', '·': '`', '、': ',', '＂': '"', '＇': "'",
         '＄': '$', '％': '%', '＆': '&', '＠': '@', '＃': '#', '＾': '^',
         '＊': '*', '＋': '+', '＝': '=', '｜': '|', '＼': '\\', '／': '/',
-        '“': "'", '”': "'", 
+        '“': "'", '”': "'", "…": "..."
     }
     for chinese_char, english_char in chinese_to_english_map.items():
         text = text.replace(chinese_char, english_char)
