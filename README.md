@@ -1,5 +1,9 @@
 # 🐸Muliti-Role_Cosyvoice2
 Muliti-Role_Cosyvoice2致力于提供一个**开源工具箱**，以解决那些**原始长文本**（如小说，长剧本）的**多角色语音**合成问题。本工具箱由四个核心部分组成：
+
+参考示意图：
+![RoleTTS](/data/img/RoleTTS_pipeline.png)
+
 - LongText-to-RoleText：将原始长文本转化为**分角色，分情感，分段落**的角色 or 旁白的可配音文本。
 - RoleText-to-Audio: 利用本地或线上**TTS**将可配音文本转化为完整音频 and 字幕文件。
 - LLM Finetune: 利用本地大模型或线上api，对提供的**badcase**进行微调，该工具箱提供了完整的dataset收集，DPO,SFT等微调workflow以及validation.
