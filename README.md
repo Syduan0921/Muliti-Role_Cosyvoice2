@@ -33,11 +33,10 @@ Muliti-Role_Cosyvoice2致力于提供一个**开源工具箱**，以解决那些
     
 4. 原始模型效果 LLM部分
    
-    | 模型       | Classify       |           | Role Judgement      |           | Pronoun Judgement      |           | Special Token Generation       |           |
-    | :--------- | :---------- | :-------- | :---------- | :-------- | :---------- | :-------- | :---------- | :-------- |
-    |            | Acc         | Scores    | Acc         | Scores    | Acc         | Scores    | Acc         | Scores    |
-    | Doubao-1.6 | \           | \         | \           | \         | \           | \         | \           | \         |
-    | Qwen3-4B    | \           | \         | \           | \         | \           | \         | \           | \         |
+    | 模型       | Classify Scores | Role Judgement Scores | Pronoun Judgement Scores | Special Token Generation Scores |
+    | :--------- | :-------------- | :------------------- | :---------------------- | :------------------------------ |
+    | Doubao-1.6 | 8.1               | \                    | \                       | \                               |
+    | Qwen3-4B   | 6.2               | \                    | \                       | \                               |
 
 5. 原始模型效果 TTS部分
 6. 微调效果 LLM部分

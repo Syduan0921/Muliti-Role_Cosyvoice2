@@ -180,7 +180,7 @@ class LLM_prompt:
         raw_output = raw_output.replace(" ", "")
         return fine_grained_post_process({"text": raw_output, "style": None})
     
-    def _evaluate_model_response(self, prompt_class: str, ctx: EvalClass) -> EvalClass:
+    def _evaluate_model_response(self, _prompt: str, ctx: List[Dict]) -> EvalClass:
         """
         对模型响应进行评估
         """
@@ -189,7 +189,7 @@ class LLM_prompt:
         model=self.api["api"],
         messages=[
             {"role": "system", "content": "你是一个专业的评审人员"},
-            {"role": "user", "content": prompt_class},
+            {"role": "user", "content": _prompt},
         ],
         extra_body = {"thinking": {"type": self.api["think"]}} if self.api["think"] != "disable" else None
         )

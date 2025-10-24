@@ -57,15 +57,58 @@ class EvalStepOne:
             resp: List[Dict] = self.agent._classify_text_interface(prompt_template=None, ctx=None, message=message)
             if self.data.data[i].resp != [] and self.data.data[i].resp is not None:
                 _resp = ctx.read_resp()
-                _resp = _resp.append({"model": self.model_name, "resp": resp})
+                _resp.append({"model": self.model_name, "resp": resp})
                 self.data.data[i].write_resp(_resp)
             else:
                 self.data.data[i].write_resp([{"model": self.model_name, "resp": resp}])
         self.data.save_samples()
 
+    def score_step(self):
+        """
+        核心步骤2，将eval后的resp与ref_resp利用LLM中预留的接口，生成分数，并保存在Scores中，统计出总分与评价
+        """
+        # 准备eval_prompt
+        with open("src/llm/prompts/evaluate_model_response.md", "r", encoding="utf-8") as f:
+            prompt = f.read()
+        # 首先准备好所有需要的数据
+        ## 初始化所有模型的scores结果
+        _scores_global = {}
+        for i, ctx in enumerate(self.data.data):
+            ref_resp: List[Dict[str, Any]] = ctx.read_ref_resp()
+            resp_all_model: List[Dict[str, Any]] = ctx.read_resp()
+            ori_input = ctx.read_origin_input()
+            for j, resp in enumerate(resp_all_model):
+                model_message = resp.get("model", "")
+                resp_message = resp.get("resp", "")
+                message = prompt.format(sentence=ori_input, reference_response=ref_resp, response=resp_message)
+                scores = self.agent._evaluate_model_response(_prompt=message, ctx=None)[0]
+                # 写入分值
+                ## 临时列表写入
+                if model_message.get("api", "") not in _scores_global.keys():
+                    _scores_global[model_message.get("api", "")] = [int(scores.get("score"))]
+                else:
+                    _scores_global[model_message.get("api", "")].append(int(scores.get("score")))
+                ## 写入文件
+                now_scores = ctx.read_scores()
+                if now_scores is not None and now_scores != []:
+                    now_scores.append({"model": model_message, "scores": scores})
+                    self.data.data[i].write_scores(now_scores)
+                else:
+                    now_scores = [{"model": model_message, "scores": scores}]
+                    self.data.data[i].write_scores(now_scores)
+        self.data.save_samples()
+        ### 整理模型输出eval结果
+        for index in _scores_global:
+            avg_scores = _scores_global[index]
+            avg_scores = sum(avg_scores) / len(avg_scores)
+            print(f"模型: {index}的平均得分为{avg_scores}!")
+
+        
+
 
 if __name__ == "__main__":
     eval_one = EvalStepOne(url="https://ark.cn-beijing.volces.com/api/v3", api_key=None, model_name={"api": "doubao-seed-1-6-thinking-250715", "think": "enabled"}, eval_path="examples\eval\step1_eval.json")
     # eval_one = EvalStepOne(url="http://10.193.151.23:15387/v1", api_key=None, model_name={"api": "qwen3", "think": "disable"}, eval_path="examples\eval\step1_eval.json")
-    eval_one.eval_step()
+    eval_one.score_step()
+    # eval_one.eval_step()
     flag = 1
