@@ -12,7 +12,24 @@
                 "content": "测验魔石碑之旁,一位中年男子,看了一眼碑上所显示出来的信息,语气漠然的将之公布了出来"
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "语言",
+                        "content": "萧炎,斗之力,三段!级别:低级!"
+                    },
+                    {
+                        "class": "旁白",
+                        "content": "测验魔石碑之旁,一位中年男子,看了一眼碑上所显示出来的信息,语气漠然的将之公布了出来"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     },
@@ -29,7 +46,24 @@
                 "content": "老者缓缓拔出腰间长剑，剑身青光流转，映得周围空气都泛起丝丝凉意"
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "语言",
+                        "content": "这把剑，名为‘青冥’，随我征战三十年，饮血无数"
+                    },
+                    {
+                        "class": "旁白",
+                        "content": "老者缓缓拔出腰间长剑，剑身青光流转，映得周围空气都泛起丝丝凉意"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     },
@@ -46,7 +80,28 @@
                 "content": "陈默猛地转身，后背的冷汗瞬间浸湿了衬衫."
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "内心独白",
+                        "content": "她怎么会出现在这里？难道是特意跟踪我？"
+                    },
+                    {
+                        "class": "旁白",
+                        "content": "陈默猛地转身，后背的冷汗瞬间浸湿了衬衫"
+                    },
+                    {
+                        "class": "内心独白",
+                        "content": "她怎么会出现在这里"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     },
@@ -67,7 +122,28 @@
                 "content": "掌柜的抖了抖油纸伞上的水珠，推门走进了茶馆"
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "旁白",
+                        "content": "暴雨如注，砸在琉璃瓦上噼啪作响，庭院里的芭蕉叶被打得抬不起头"
+                    },
+                    {
+                        "class": "语言",
+                        "content": "这鬼天气，怕是要下到后半夜了"
+                    },
+                    {
+                        "class": "旁白",
+                        "content": "掌柜的抖了抖油纸伞上的水珠，推门走进了茶馆"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     },
@@ -84,7 +160,24 @@
                 "content": "控制台的警报灯疯狂闪烁，红色的光芒映在李教授布满血丝的眼睛里"
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "语言",
+                        "content": "警告！能量核心温度超过临界值，三分钟后将发生爆炸"
+                    },
+                    {
+                        "class": "旁白",
+                        "content": "控制台的警报灯疯狂闪烁，红色的光芒映在李教授布满血丝的眼睛里"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     },
@@ -97,7 +190,20 @@
                 "content": "月光穿过雕花窗棂，在青石板上投下斑驳的影子，祠堂里的香炉还燃着最后一缕青烟，阿秀跪在蒲团上，指尖轻轻拂过供桌上泛黄的族谱"
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "旁白",
+                        "content": "月光穿过雕花窗棂，在青石板上投下斑驳的影子，祠堂里的香炉还燃着最后一缕青烟阿秀跪在蒲团上，指尖轻轻拂过供桌上泛黄的族谱月光穿过雕花窗棂"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     },
@@ -114,7 +220,28 @@
                 "content": "老周用放大镜反复端详着掌心的青铜币，指腹因用力而泛白"
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "内心独白",
+                        "content": "这枚古币的纹路和古籍记载的一模一样，难道传说都是真的？"
+                    },
+                    {
+                        "class": "旁白",
+                        "content": "老周用放大镜反复端详着掌心的青铜币，指腹因用力而泛白"
+                    },
+                    {
+                        "class": "内心独白",
+                        "content": "这枚古币的纹路和古籍记载的一模一样"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     },
@@ -131,7 +258,24 @@
                 "content": "' 再过三日，就是采莲节了呢 '"
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "旁白",
+                        "content": "春风卷着漫天柳絮掠过湖面，画舫上的丝竹声断断续续飘过来，阿莲坐在岸边的石阶上，把脚伸进微凉的湖水里"
+                    },
+                    {
+                        "class": "语言",
+                        "content": "再过三日，就是采莲节了呢"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     },
@@ -148,7 +292,24 @@
                 "content": "张队对着对讲机低声下令，手指紧紧扣着腰间的配枪，视线穿过茂密的灌木丛锁定前方的黑影"
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "语言",
+                        "content": "各单位注意，目标已进入三号区域，准备实施抓捕"
+                    },
+                    {
+                        "class": "旁白",
+                        "content": "张队对着对讲机低声下令，手指紧紧扣着腰间的配枪，视线穿过茂密的灌木丛锁定前方的黑影"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     },
@@ -165,7 +326,24 @@
                 "content": "那时候爸爸还在，我们一家人去海边拍的这张照片呢…"
             }
         ],
-        "resp": null,
+        "resp": [
+            {
+                "model": {
+                    "api": "doubao-seed-1-6-thinking-250715",
+                    "think": "enabled"
+                },
+                "resp": [
+                    {
+                        "class": "旁白",
+                        "content": "壁炉里的火焰噼啪作响，将客厅映照得暖意融融，苏菲裹着毛毯蜷缩在沙发上，翻看着一本泛黄的相册"
+                    },
+                    {
+                        "class": "内心独白",
+                        "content": "那时候爸爸还在，我们一家人去海边拍的这张照片呢…"
+                    }
+                ]
+            }
+        ],
         "scores": [],
         "describe": null
     }
