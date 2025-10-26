@@ -7,9 +7,9 @@ from transformers import AutoModelForCausalLM, TrainingArguments, Trainer, DataC
 import os
 import swanlab
 
-os.environ["SWANLAB_PROJECT"]="qwen3-sft-medical"
+os.environ["SWANLAB_PROJECT"]="qwen3-4B"
 PROMPT = "你是一个专业的对话分析员，下面将对将要被用于配音的台本进行分割任务，任务是将台本中的复杂文本进行分割，将其分为语言、内心独白和旁白。你还需要灵活利用上下文来判断，例如观察上文是否正在延续没有说完的话或思考，这会对你后续的判断产生很重要的影响。"
-MAX_LENGTH = 2048
+MAX_LENGTH = 16384
 
 swanlab.config.update({
     "model": "Qwen/Qwen3-4B",
@@ -122,7 +122,7 @@ args = TrainingArguments(
     eval_strategy="steps",
     eval_steps=100,
     logging_steps=10,
-    num_train_epochs=2,
+    num_train_epochs=50,
     save_steps=400,
     learning_rate=1e-4,
     save_on_each_node=True,
@@ -142,7 +142,7 @@ trainer = Trainer(
 trainer.train()
 
 # 用测试集的前3条，主观看模型
-test_df = pd.read_json(test_jsonl_new_path, lines=True)[:3]
+test_df = pd.read_json(test_jsonl_new_path, lines=True)[:5]
 
 test_text_list = []
 
