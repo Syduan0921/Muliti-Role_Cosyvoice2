@@ -9,7 +9,7 @@ import swanlab
 
 os.environ["SWANLAB_PROJECT"]="qwen3-4B"
 PROMPT = "你是一个专业的对话分析员，下面将对将要被用于配音的台本进行分割任务，任务是将台本中的复杂文本进行分割，将其分为语言、内心独白和旁白。你还需要灵活利用上下文来判断，例如观察上文是否正在延续没有说完的话或思考，这会对你后续的判断产生很重要的影响。"
-MAX_LENGTH = 16384
+MAX_LENGTH = 4096
 
 swanlab.config.update({
     "model": "Qwen/Qwen3-4B",
@@ -116,13 +116,13 @@ eval_dataset = eval_ds.map(process_func, remove_columns=eval_ds.column_names)
 
 args = TrainingArguments(
     output_dir="Qwen3/checkpoints",
-    per_device_train_batch_size=1,
+    per_device_train_batch_size=2,
     per_device_eval_batch_size=1,
     gradient_accumulation_steps=4,
     eval_strategy="steps",
     eval_steps=100,
     logging_steps=10,
-    num_train_epochs=50,
+    num_train_epochs=20,
     save_steps=400,
     learning_rate=1e-4,
     save_on_each_node=True,

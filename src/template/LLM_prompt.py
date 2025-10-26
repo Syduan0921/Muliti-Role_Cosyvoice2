@@ -45,7 +45,7 @@ class LLM_prompt:
                 prompt = f.read()
                 self.prompt_list.append({"class": prompt_path.split("\\")[-1].split(".")[0], "prompt": prompt})
         # 打印所有提示词模板
-        print(self.prompt_list)
+        # print(self.prompt_list)
         # 初始化openai api
         
     def update_api(self, api_key_default: str | None, api_default: str | None, api: str | None = None, think: str | None = None, api_faster: str | None = None, think_faster: str | None = None):

@@ -54,7 +54,7 @@ class EvalStepOne:
             content = message=ctx.read_origin_input()
             message = [{"role": "system", "content": "你是一个专业的对话分析员，下面将对将要被用于配音的台本进行分割任务，任务是将台本中的复杂文本进行分割，将其分为语言、内心独白和旁白。你还需要灵活利用上下文来判断，例如观察上文是否正在延续没有说完的话或思考，这会对你后续的判断产生很重要的影响。"}, 
             {"role": "user", "content": content}]
-            
+            print(f"发送信息为：{message}")
             resp: List[Dict] = self.agent._classify_text_interface(prompt_template=None, ctx=None, message=message)
             if self.data.data[i].resp != [] and self.data.data[i].resp is not None:
                 _resp = ctx.read_resp()
@@ -81,8 +81,8 @@ class EvalStepOne:
             for j, resp in enumerate(resp_all_model):
                 model_message = resp.get("model", "")
                 resp_message = resp.get("resp", "")
-                message = prompt.format(sentence=ori_input, reference_response=ref_resp, response=resp_message)
-                print(f"问题：{message}")
+                message = prompt.format(sentence=str(ori_input), reference_response=str(ref_resp), response=str(resp_message))
+                print(f"\n 问题：{message}")
                 scores = self.agent._evaluate_model_response(_prompt=message, ctx=None)[0]
                 # 写入分值
                 ## 临时列表写入
