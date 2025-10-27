@@ -12,13 +12,14 @@ from typing import List, Optional, Dict, Any
 
 # Get absolute path to model directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(current_dir, "..", "model_path")
+model_path = os.path.join(current_dir, "..", "checkpoints/checkpoint-300")
+# model_path = os.path.join(current_dir, "..", "model_path")
 model_path = os.path.abspath(model_path)
 
 print(f"Loading model from: {model_path}")
 
 # Check if CUDA is available
-device = "cuda:0" if torch.cuda.is_available() else "cpu"
+device = "cuda:3" if torch.cuda.is_available() else "cpu"
 print(f"Using device: {device}")
 
 # Load the tokenizer and model
@@ -51,7 +52,7 @@ class ChatCompletionRequest(BaseModel):
     model: str
     messages: List[Message]
     max_tokens: Optional[int] = 4096
-    temperature: Optional[float] = 0.7
+    temperature: Optional[float] = 1
     top_p: Optional[float] = 0.9
     stream: Optional[bool] = False
     extra_body: Optional[dict] = None

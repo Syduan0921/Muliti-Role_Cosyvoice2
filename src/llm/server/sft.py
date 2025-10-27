@@ -30,6 +30,7 @@ def dataset_jsonl_transfer(origin_path, new_path):
             data = json.loads(line)
             inputs = data["question"]
             output = data["answer"]
+
             message = {
                 "instruction": PROMPT,
                 "input": f"{inputs}",
@@ -47,11 +48,14 @@ def process_func(example):
     将数据集进行预处理
     """ 
     input_ids, attention_mask, labels = [], [], []
+    # inputs = json.dumps(example['input'], ensure_ascii=False, indent=2)
+    inputs = example['input']
+    outputs = json.dumps(example['output'], ensure_ascii=False, indent=2)
     instruction = tokenizer(
-        f"<|im_start|>system\n{PROMPT}<|im_end|>\n<|im_start|>user\n{example['input']}<|im_end|>\n<|im_start|>assistant\n",
+        f"<|im_start|>system\n{PROMPT}<|im_end|>\n<|im_start|>user\n{inputs}<|im_end|>\n<|im_start|>assistant\n",
         add_special_tokens=False,
     )
-    response = tokenizer(f"{example['output']}", add_special_tokens=False)
+    response = tokenizer(f"{outputs}<|im_end|>", add_special_tokens=False)
     input_ids = instruction["input_ids"] + response["input_ids"] + [tokenizer.pad_token_id]
     attention_mask = (
         instruction["attention_mask"] + response["attention_mask"] + [1]
@@ -90,6 +94,7 @@ def predict(messages, model, tokenizer):
 # Transformers加载模型权重
 tokenizer = AutoTokenizer.from_pretrained("Qwen3/model_path", use_fast=False, trust_remote_code=True)
 model = AutoModelForCausalLM.from_pretrained("Qwen3/model_path", device_map="auto", torch_dtype=torch.bfloat16)
+
 model.enable_input_require_grads()  # 开启梯度检查点时，要执行该方法
 
 # 加载、处理数据集和测试集
@@ -116,15 +121,15 @@ eval_dataset = eval_ds.map(process_func, remove_columns=eval_ds.column_names)
 
 args = TrainingArguments(
     output_dir="Qwen3/checkpoints",
-    per_device_train_batch_size=2,
+    per_device_train_batch_size=1,
     per_device_eval_batch_size=1,
     gradient_accumulation_steps=4,
     eval_strategy="steps",
     eval_steps=100,
     logging_steps=10,
-    num_train_epochs=20,
-    save_steps=400,
-    learning_rate=1e-4,
+    num_train_epochs=50,
+    save_steps=300,
+    learning_rate=3e-5,
     save_on_each_node=True,
     gradient_checkpointing=True,
     report_to="swanlab",
