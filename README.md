@@ -35,7 +35,7 @@ Muliti-Role_Cosyvoice2致力于提供一个**开源工具箱**，以解决那些
    
     | 模型       | Classify Scores | Role Judgement Scores | Pronoun Judgement Scores | Special Token Generation Scores |
     | :--------- | :-------------- | :------------------- | :---------------------- | :------------------------------ |
-    | **Doubao-1.6** | 8.1               | \                    | \                       | \                               |
+    | Doubao-1.6 | **8.1**               | \                    | \                       | \                               |
     | Qwen3-4B   | 6.2               | \                    | \                       | \                               |
     | Qwen3-4B-SFT   | 7.8               | \                    | \                       | \                               |
 
