@@ -138,7 +138,7 @@ class LLM_prompt:
             extra_body = {"thinking": {"type": self.api["think"]}} if self.api["think"] != "disable" else None
         )
         ctx = parse_list_of_dicts(completion.choices[0].message.content)
-        if not ctx:
+        if not ctx and ctx != []:
             _max_times, i = 3, 0
             while not ctx and i < _max_times:
                 raw = self._default_api_interface(_prompt)

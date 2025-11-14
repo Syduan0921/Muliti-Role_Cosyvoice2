@@ -174,5 +174,6 @@ class FreeTalkPipeline:
 
 
 if __name__ == "__main__":
-    pipeline = FreeTalkPipeline("examples\doupo\origin.txt", Windows_Size=5, url="http://10.193.151.23:15387/v1")
+    # pipeline = FreeTalkPipeline("examples\death\origin.txt", Windows_Size=5, url="http://10.193.151.23:15387/v1")
+    pipeline = FreeTalkPipeline("examples\death\origin.txt", Windows_Size=5)
     pipeline.forward()
