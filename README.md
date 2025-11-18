@@ -1,3 +1,6 @@
+**TODO List**
+尽快加入Cosyvoice2推理端
+
 # 🐸Muliti-Role_Cosyvoice2
 Muliti-Role_Cosyvoice2致力于提供一个**开源工具箱**，以解决那些**原始长文本**（如小说，长剧本）的**多角色语音**合成问题。本工具箱由四个核心部分组成：
 
